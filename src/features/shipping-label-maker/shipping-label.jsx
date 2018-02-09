@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../core/components/wizard.css';
 
-function ShippingLabel(props) {
+const ShippingLabel = props => {
 
     const { wizardContext, totalCost, shippingOption, className } = props;
     return (
@@ -53,7 +53,7 @@ function ShippingLabel(props) {
             </div>
         </div>
     );
-}
+};
 
 ShippingLabel.propTypes = {
     wizardContext: PropTypes.object.isRequired,

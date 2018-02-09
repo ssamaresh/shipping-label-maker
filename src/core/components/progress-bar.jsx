@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './wizard.css';
 import './progress-bar.css';
 
-function ProgressBar(props) {
+const ProgressBar = props => {
     const { progress, step } = props;
     return (
         <div>
@@ -14,7 +14,7 @@ function ProgressBar(props) {
             </div>
         </div>
     );
-}
+};
 
 ProgressBar.propTypes = {
     step: PropTypes.number.isRequired,
