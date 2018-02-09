@@ -1,0 +1,46 @@
+.wizard {
+    width: 600px;
+    /* height: 450px; */
+    margin: 50px auto;
+    padding: 0 10px;
+}
+
+.wizard-header {
+    padding: 0 0 10px 0;
+    margin: 0 0 20px 0;
+}
+
+.wizard-step {
+    margin: 30px 0 0 0;
+}
+
+.wizard-confirm {
+    border: 2px solid #000000;
+    padding: 20px;
+}
+
+.wizard-footer {
+    overflow: auto;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.wizard-footer button {
+    margin: 0 20px;
+}
+
+input.active:valid,
+select.active:valid {
+    box-shadow: 0 0 1px 2px green;
+}
+
+input.active:invalid,
+select.active:invalid {
+    box-shadow: 0 0 1px 2px red;
+}
+  
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
