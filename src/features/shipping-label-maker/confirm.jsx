@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
 import '../../core/components/wizard.css';
 
@@ -11,7 +12,7 @@ class Confirm extends React.Component {
     }
 
     render() {
-        const { wizardContext, isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const { wizardContext, isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
         const footerProps = {
             isPreviousDisabled,
             isNextDisabled,
@@ -20,6 +21,7 @@ class Confirm extends React.Component {
         };
         return (
             <div>
+                <Header title = { title }/>
                 <div className = 'wizard-confirm'>
                     <div>
                         <h4>Receiver&#39;s Address</h4>

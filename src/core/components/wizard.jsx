@@ -37,6 +37,10 @@ class Wizard extends React.Component {
 
         const title = steps[step - 1]['name'];
 
+        const headerProps = {
+            title
+        };
+
         const footerProps = {
             isPreviousDisabled,
             isNextDisabled,
@@ -45,16 +49,12 @@ class Wizard extends React.Component {
         };
 
         return (
-            <div>
-                <header className = 'step-header'>
-                    { title }
-                </header>
-                <StepComponent
-                    wizardContext = { wizardContext }
-                    onAction = {this.onAction }
-                    {...footerProps}
-                />
-            </div>
+            <StepComponent
+                { ...headerProps }
+                wizardContext = { wizardContext }
+                onAction = { this.onAction }
+                { ...footerProps }
+            />
         );
     }
 

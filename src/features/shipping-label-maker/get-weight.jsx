@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
 import '../../core/components/wizard.css';
 
@@ -70,7 +71,7 @@ class GetWeight extends React.Component {
 
     render() {
         const { weight } = this.state;
-        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
         const footerProps = {
             isPreviousDisabled,
             isNextDisabled,
@@ -79,6 +80,7 @@ class GetWeight extends React.Component {
         };
         return (
             <div>
+                <Header title = { title }/>
                 <div style = {{ 'marginBottom': '15px' }}>
                     <label name = 'weightLabel'>Weight (lbs)</label>
                     <input

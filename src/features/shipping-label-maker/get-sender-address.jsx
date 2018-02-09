@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
 import '../../core/components/wizard.css';
 
@@ -76,7 +77,7 @@ class GetSenderAddress extends React.Component {
 
     render() {
         const { from } = this.state;
-        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
         const footerProps = {
             isPreviousDisabled,
             isNextDisabled,
@@ -85,6 +86,7 @@ class GetSenderAddress extends React.Component {
         };
         return (
             <div>
+                <Header title = { title }/>
                 <div>
                     <div style = {{ 'marginBottom': '15px' }}>
                         <label name = 'nameLabel'>Name</label>
