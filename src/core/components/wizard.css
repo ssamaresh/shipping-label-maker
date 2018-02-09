@@ -44,3 +44,9 @@ select.active:invalid {
     font-size: 12px;
     margin-top: 5px;
 }
+
+.step-header {
+    font-weight: 600;
+    padding: 10px 0;
+    font-size: 1.2em;
+}

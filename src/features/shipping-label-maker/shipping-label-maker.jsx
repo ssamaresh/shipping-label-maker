@@ -97,7 +97,7 @@ class ShippingLabelMaker extends React.Component {
         const wizardProps = {
             className: 'wizard',
             header: this.header,
-            steps: steps,
+            steps,
             wizardContext: shippingInfo,
             onComplete: this.onComplete,
             onWizardContextUpdate: this.onWizardContextUpdate
@@ -106,7 +106,7 @@ class ShippingLabelMaker extends React.Component {
         const shippingLabelProps = {
             className: 'wizard',
             wizardContext: shippingInfo,
-            totalCost: totalCost,
+            totalCost,
             shippingOption: this.getShippingOption()
         };
 

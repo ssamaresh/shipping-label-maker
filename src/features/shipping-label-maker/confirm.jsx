@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from '../../core/components/footer';
 import '../../core/components/wizard.css';
 
 class Confirm extends React.Component {
@@ -11,6 +12,12 @@ class Confirm extends React.Component {
 
     render() {
         const { wizardContext, isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const footerProps = {
+            isPreviousDisabled,
+            isNextDisabled,
+            nextAction,
+            prevAction
+        };
         return (
             <div>
                 <div className = 'wizard-confirm'>
@@ -47,24 +54,7 @@ class Confirm extends React.Component {
                         </div>
                     </div>
                 </div>
-                <footer className = 'wizard-footer'>
-                    <button
-                        type = 'button'
-                        className = "btn btn-primary pull-left"
-                        disabled = { isPreviousDisabled }
-                        onClick = {() => this.handleClick(prevAction)}
-                    >
-                    Previous
-                    </button>
-                    <button
-                        type = 'button'
-                        className = "btn btn-primary pull-right"
-                        disabled = { isNextDisabled }
-                        onClick = {() => this.handleClick(nextAction)}
-                    >
-                    Next
-                    </button>
-                </footer>
+                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
             </div>
         );
     }

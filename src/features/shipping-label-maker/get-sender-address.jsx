@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from '../../core/components/footer';
 import '../../core/components/wizard.css';
 
 class GetSenderAddress extends React.Component {
@@ -76,6 +77,12 @@ class GetSenderAddress extends React.Component {
     render() {
         const { from } = this.state;
         const { isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const footerProps = {
+            isPreviousDisabled,
+            isNextDisabled,
+            nextAction,
+            prevAction
+        };
         return (
             <div>
                 <div>
@@ -204,24 +211,7 @@ class GetSenderAddress extends React.Component {
                         </div>
                     </div>
                 </div>
-                <footer className = 'wizard-footer'>
-                    <button
-                        type = 'button'
-                        className = "btn btn-primary pull-left"
-                        disabled = { isPreviousDisabled }
-                        onClick = {() => this.handleClick(prevAction)}
-                    >
-                    Previous
-                    </button>
-                    <button
-                        type = 'button'
-                        className = "btn btn-primary pull-right"
-                        disabled = { isNextDisabled }
-                        onClick = {() => this.handleClick(nextAction)}
-                    >
-                    Next
-                    </button>
-                </footer>
+                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './wizard.css';
 import ProgressBar from './progress-bar';
+import './wizard.css';
 
 class Wizard extends React.Component {
 
@@ -27,28 +27,33 @@ class Wizard extends React.Component {
 
     getStep = (step, wizardContext) => {
         const { steps } = this.props;
+
         const isPreviousDisabled = step === 1 ? true : false;
         const isNextDisabled = false;
-
         const nextAction = step !== steps.length ? 'next' : 'end';
         const prevAction = 'prev';
+
         const StepComponent = steps[step - 1]['component'];
+
         const title = steps[step - 1]['name'];
 
-        const stepProps = {
-            wizardContext: wizardContext,
-            isPreviousDisabled: isPreviousDisabled,
-            isNextDisabled: isNextDisabled,
-            nextAction: nextAction,
-            prevAction: prevAction
+        const footerProps = {
+            isPreviousDisabled,
+            isNextDisabled,
+            nextAction,
+            prevAction
         };
 
         return (
             <div>
-                <header>
-                    <h4>{ title }</h4>
+                <header className = 'step-header'>
+                    { title }
                 </header>
-                <StepComponent onAction = {this.onAction } { ...stepProps } />
+                <StepComponent
+                    wizardContext = { wizardContext }
+                    onAction = {this.onAction }
+                    {...footerProps}
+                />
             </div>
         );
     }
