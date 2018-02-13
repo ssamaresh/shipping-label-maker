@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
+import { isFormValid, isInputValid } from '../../core/utils/form-validation';
 import '../../core/components/wizard.css';
 
 class GetReceiverAddress extends React.Component {
@@ -29,40 +30,14 @@ class GetReceiverAddress extends React.Component {
     handleClick = (action) => {
         const { onAction } = this.props;
         const values = this.state;
-        if(this.isFormValid()) {
-            onAction(action, values);
+        if(action === 'next' || action === 'end') {
+            if(isFormValid()) {
+                onAction(action, values);
+            }
         }
-    }
-
-    isFormValid() {
-        const formElements = document.querySelectorAll('.form-control');
-        let isFormValid = true;
-
-        formElements.forEach(input => {
-            input.classList.add('active');
-            const isInputValid = this.showInputError(input);
-            if (!isInputValid) {
-                isFormValid = false;
-            }
-        });
-        return isFormValid;
-    }
-
-    showInputError = (input) => {
-        const validity = input.validity;
-        const label = document.getElementsByName(`${input.name}Label`)[0].textContent;
-        const error = document.getElementsByName(`${input.name}Error`)[0];
-        if (!validity.valid) {
-            if (validity.valueMissing) {
-                error.textContent = `${label} is a required field`;
-            }
-            else if(validity.patternMismatch) {
-                error.textContent = `${label} ` + input.title;
-            }
-            return false;
+        else {
+            onAction(action);
         }
-        error.textContent = '';
-        return true;
     }
 
     onChange = (event) => {
@@ -72,7 +47,7 @@ class GetReceiverAddress extends React.Component {
         const newObj = Object.assign({}, to, change);
 
         event.target.classList.add('active');
-        this.showInputError(event.target);
+        isInputValid(event.target);
         this.setState({ to: newObj });
     }
 

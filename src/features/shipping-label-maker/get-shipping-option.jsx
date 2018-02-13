@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
+import { isFormValid, isInputValid } from '../../core/utils/form-validation';
 import '../../core/components/wizard.css';
 
 class GetShippingOption extends React.Component {
@@ -22,13 +23,21 @@ class GetShippingOption extends React.Component {
     handleClick = (action) => {
         const { onAction } = this.props;
         const values = this.state;
-        onAction(action, values);
+        if(action === 'next' || action === 'end') {
+            if(isFormValid()) {
+                onAction(action, values);
+            }
+        }
+        else {
+            onAction(action);
+        }
     }
 
     onChange = (event) => {
         const change = {};
         change[event.target.name] = event.target.value;
-        // const newObj = Object.assign({}, shippingOption, change);
+        event.target.classList.add('active');
+        isInputValid(event.target);
         this.setState({ shippingOption: event.target.value });
     }
 
@@ -45,6 +54,7 @@ class GetShippingOption extends React.Component {
             <div>
                 <Header title = { title }/>
                 <div style = {{ 'marginBottom': '15px' }}>
+                    <label hidden name = 'shippingOptionLabel'>Shipping Option</label>
                     <select
                         required
                         className = 'form-control'
@@ -55,6 +65,7 @@ class GetShippingOption extends React.Component {
                         <option value = '1'>Ground</option>
                         <option value = '2'>Priority</option>
                     </select>
+                    <div className = 'error' name = 'shippingOptionError' />
                 </div>
                 <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
             </div>

@@ -63,7 +63,7 @@ class Wizard extends React.Component {
         onWizardContextUpdate(obj);
     }
 
-    onAction = (action, values) => {
+    onAction = (action, values = {}) => {
         const actionValue = this.WizardAction[action];
         const { onComplete } = this.props;
         const { step } = this.state;
