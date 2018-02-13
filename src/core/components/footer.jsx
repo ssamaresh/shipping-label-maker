@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './form-components/button';
+
 
 class Footer extends React.Component {
 
@@ -7,38 +9,37 @@ class Footer extends React.Component {
         super(props);
     }
 
-    handleClick = (e) => {
-        const { onBtnClick, prevAction, nextAction } = this.props;
-        const action = e.target.name === 'prevBtn' ? prevAction : nextAction;
+    handleClick = (action) => {
+        const { onBtnClick } = this.props;
         onBtnClick(action);
     }
 
     render() {
         const {
             isPreviousDisabled,
-            isNextDisabled
+            isNextDisabled,
+            prevAction,
+            nextAction
         } = this.props;
 
         return(
             <footer className = 'wizard-footer'>
-                <button
-                    type = 'button'
-                    className = 'btn btn-primary pull-left'
-                    name = 'prevBtn'
+                <Button
+                    class = 'pull-left'
+                    name = { prevAction }
+                    title = 'Previous'
+                    action = { prevAction }
                     disabled = { isPreviousDisabled }
                     onClick = { this.handleClick }
-                >
-                Previous
-                </button>
-                <button
-                    type = 'button'
-                    className = 'btn btn-primary pull-right'
-                    name = 'nextBtn'
+                />
+                <Button
+                    class = 'pull-right'
+                    name = { nextAction }
+                    title = 'Next'
+                    action = { nextAction }
                     disabled = { isNextDisabled }
                     onClick = { this.handleClick }
-                >
-                Next
-                </button>
+                />
             </footer>
         );
     }
