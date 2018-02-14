@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleClick = (e) => {
         const { onClick } = this.props;
         onClick(e.target.name);

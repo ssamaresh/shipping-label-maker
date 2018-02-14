@@ -43,13 +43,8 @@ class GetShippingOption extends React.Component {
 
     render() {
         const { shippingOption } = this.state;
-        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
-        const footerProps = {
-            isPreviousDisabled,
-            isNextDisabled,
-            nextAction,
-            prevAction
-        };
+        const { title, footerProps } = this.props;
+
         return (
             <div>
                 <Header title = { title }/>
@@ -67,7 +62,10 @@ class GetShippingOption extends React.Component {
                     </select>
                     <div className = 'error' name = 'shippingOptionError' />
                 </div>
-                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
+                <Footer
+                    onBtnClick = { this.handleClick }
+                    footerProps = { footerProps }
+                />
             </div>
         );
     }

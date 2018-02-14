@@ -43,13 +43,8 @@ class GetWeight extends React.Component {
 
     render() {
         const { weight } = this.state;
-        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
-        const footerProps = {
-            isPreviousDisabled,
-            isNextDisabled,
-            nextAction,
-            prevAction
-        };
+        const { title, footerProps } = this.props;
+
         return (
             <div>
                 <Header title = { title }/>
@@ -69,7 +64,10 @@ class GetWeight extends React.Component {
                     />
                     <div className = 'error' name = 'weightError' />
                 </div>
-                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
+                <Footer
+                    onBtnClick = { this.handleClick }
+                    footerProps = { footerProps }
+                />
             </div>
         );
     }

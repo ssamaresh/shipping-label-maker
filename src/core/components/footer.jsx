@@ -5,47 +5,38 @@ import Button from './form-components/button';
 
 class Footer extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleClick = (action) => {
         const { onBtnClick } = this.props;
         onBtnClick(action);
     }
 
     render() {
-        const {
-            isPreviousDisabled,
-            isNextDisabled,
-            prevAction,
-            nextAction
-        } = this.props;
+        const { footerProps } = this.props;
+        const buttons = footerProps.buttons.map((button, index) => {
+            return (
+                <Button
+                    key = { index }
+                    class = { button.class }
+                    name = { button.name }
+                    title = { button.title }
+                    action = { button.action }
+                    disabled = { button.isDisabled }
+                    onClick = { this.handleClick }
+                />
+            );
+        });
+
 
         return(
             <footer className = 'wizard-footer'>
-                <Button
-                    class = 'pull-left'
-                    name = { prevAction }
-                    title = 'Previous'
-                    action = { prevAction }
-                    disabled = { isPreviousDisabled }
-                    onClick = { this.handleClick }
-                />
-                <Button
-                    class = 'pull-right'
-                    name = { nextAction }
-                    title = 'Next'
-                    action = { nextAction }
-                    disabled = { isNextDisabled }
-                    onClick = { this.handleClick }
-                />
+                { buttons }
             </footer>
         );
     }
 
     static propTypes = {
-        onBtnClick: PropTypes.func.isRequired
+        onBtnClick: PropTypes.func.isRequired,
+        footerProps: PropTypes.object.isRequired
     };
 
 }

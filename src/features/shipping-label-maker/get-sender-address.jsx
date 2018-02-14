@@ -53,13 +53,8 @@ class GetSenderAddress extends React.Component {
 
     render() {
         const { from } = this.state;
-        const { isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
-        const footerProps = {
-            isPreviousDisabled,
-            isNextDisabled,
-            nextAction,
-            prevAction
-        };
+        const { title, footerProps } = this.props;
+
         return (
             <div>
                 <Header title = { title }/>
@@ -189,7 +184,10 @@ class GetSenderAddress extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
+                <Footer
+                    onBtnClick = { this.handleClick }
+                    footerProps = { footerProps }
+                />
             </div>
         );
     }

@@ -1,8 +1,10 @@
 import React from 'react';
 
+// Core Components import
 import Wizard from '../../core/components/wizard';
 import Authorized from '../../core/components/authorized';
 
+// Steps import
 import GetReceiverAddress from './get-receiver-address';
 import GetSenderAddress from './get-sender-address';
 import GetWeight from './get-weight';
@@ -10,6 +12,7 @@ import GetShippingOption from './get-shipping-option';
 import Confirm from './confirm';
 import ShippingLabel from './shipping-label';
 
+// CSS import
 import '../../core/components/wizard.css';
 
 const AuthorizedWizard = Authorized(Wizard);

@@ -12,13 +12,8 @@ class Confirm extends React.Component {
     }
 
     render() {
-        const { wizardContext, isPreviousDisabled, isNextDisabled, prevAction, nextAction, title } = this.props;
-        const footerProps = {
-            isPreviousDisabled,
-            isNextDisabled,
-            nextAction,
-            prevAction
-        };
+        const { wizardContext, title, footerProps } = this.props;
+
         return (
             <div>
                 <Header title = { title }/>
@@ -56,7 +51,10 @@ class Confirm extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer onBtnClick = { this.handleClick } { ...footerProps }/>
+                <Footer
+                    onBtnClick = { this.handleClick }
+                    footerProps = { footerProps }
+                />
             </div>
         );
     }
