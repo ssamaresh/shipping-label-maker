@@ -1,12 +1,18 @@
 import React from 'react';
+
 import Wizard from '../../core/components/wizard';
+import Authorized from '../../core/components/authorized';
+
 import GetReceiverAddress from './get-receiver-address';
 import GetSenderAddress from './get-sender-address';
 import GetWeight from './get-weight';
 import GetShippingOption from './get-shipping-option';
 import Confirm from './confirm';
 import ShippingLabel from './shipping-label';
+
 import '../../core/components/wizard.css';
+
+const AuthorizedWizard = Authorized(Wizard);
 
 class ShippingLabelMaker extends React.Component {
 
@@ -115,7 +121,7 @@ class ShippingLabelMaker extends React.Component {
                 <ShippingLabel { ...shippingLabelProps }></ShippingLabel>
             ) :
             (
-                <Wizard { ...wizardProps }></Wizard>
+                <AuthorizedWizard { ...wizardProps }></AuthorizedWizard>
             );
     }
 }
