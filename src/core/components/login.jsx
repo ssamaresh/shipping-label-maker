@@ -1,6 +1,9 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
 import Footer from './footer';
+import Button from './form-components/button';
+
 import { isFormValid, isInputValid } from '../utils/form-validation';
 
 class Login extends React.Component {
@@ -38,18 +41,6 @@ class Login extends React.Component {
     render() {
         const { username, password } = this.state;
 
-        const footerProps = {
-            buttons: [
-                {
-                    class: 'center',
-                    name: 'login',
-                    title: 'Login',
-                    action: 'login',
-                    isDisabled: false
-                }
-            ]
-        };
-
         return (
             <div className = 'wizard wizard-login-form'>
                 <div className = 'error' name = 'loginError' />
@@ -84,13 +75,23 @@ class Login extends React.Component {
                         <div className = 'error' name = 'passwordError' />
                     </div>
                 </div>
-                <Footer
-                    onBtnClick = { this.handleClick }
-                    footerProps = { footerProps }
-                />
+                <Footer onBtnClick = { this.handleClick } >
+                    <Button
+                        class = 'center'
+                        name = 'login'
+                        title = 'Login'
+                        action = 'login'
+                        isDisabled = { false }
+                        onClick = { this.handleClick }
+                    />
+                </Footer>
             </div>
         );
     }
+
+    static propTypes = {
+        onLogin: PropTypes.func.isRequired
+    };
 
 }
 

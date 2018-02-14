@@ -9,12 +9,12 @@ class Button extends React.Component {
     }
 
     render() {
-        const { name, title, disabled } = this.props;
+        const { name, title, isDisabled } = this.props;
         return(
             <button
                 className = { 'btn btn-primary ' + this.props.class }
                 name = { name }
-                disabled = { disabled }
+                disabled = { isDisabled }
                 onClick = { this.handleClick }
             >
                 { title }
@@ -27,7 +27,7 @@ class Button extends React.Component {
         name: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         action: PropTypes.string.isRequired,
-        disabled: PropTypes.bool.isRequired
+        isDisabled: PropTypes.bool.isRequired
     };
 }
 

@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
+import Button from '../../core/components/form-components/button';
+
 import '../../core/components/wizard.css';
 
 class Confirm extends React.Component {
@@ -12,7 +15,7 @@ class Confirm extends React.Component {
     }
 
     render() {
-        const { wizardContext, title, footerProps } = this.props;
+        const { wizardContext, title, isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
 
         return (
             <div>
@@ -51,10 +54,24 @@ class Confirm extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer
-                    onBtnClick = { this.handleClick }
-                    footerProps = { footerProps }
-                />
+                <Footer>
+                    <Button
+                        class = 'pull-left'
+                        name = { prevAction }
+                        title = 'Previous'
+                        action = { prevAction }
+                        isDisabled = { isPreviousDisabled }
+                        onClick = { this.handleClick }
+                    />
+                    <Button
+                        class = 'pull-right'
+                        name = { nextAction }
+                        title = 'Confirm'
+                        action =  { nextAction }
+                        isDisabled = { isNextDisabled }
+                        onClick = { this.handleClick }
+                    />
+                </Footer>
             </div>
         );
     }

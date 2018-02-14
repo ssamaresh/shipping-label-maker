@@ -42,22 +42,10 @@ class Wizard extends React.Component {
         };
 
         const footerProps = {
-            buttons: [
-                {
-                    class: 'pull-left',
-                    name: prevAction,
-                    title: 'Previous',
-                    action: prevAction,
-                    isDisabled: isPreviousDisabled
-                },
-                {
-                    class: 'pull-right',
-                    name: nextAction,
-                    title: 'Next',
-                    action: nextAction,
-                    isDisabled: isNextDisabled
-                }
-            ]
+            isPreviousDisabled,
+            isNextDisabled,
+            prevAction,
+            nextAction
         };
 
         return (
@@ -65,7 +53,7 @@ class Wizard extends React.Component {
                 { ...headerProps }
                 wizardContext = { wizardContext }
                 onAction = { this.onAction }
-                footerProps = { footerProps }
+                { ...footerProps }
             />
         );
     }

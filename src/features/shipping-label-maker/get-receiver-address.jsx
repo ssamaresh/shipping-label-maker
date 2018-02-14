@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
+import Button from '../../core/components/form-components/button';
+
 import { isFormValid, isInputValid } from '../../core/utils/form-validation';
+
 import '../../core/components/wizard.css';
 
 class GetReceiverAddress extends React.Component {
@@ -53,7 +57,7 @@ class GetReceiverAddress extends React.Component {
 
     render() {
         const { to } = this.state;
-        const { title, footerProps } = this.props;
+        const { title, isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
 
         return (
             <div>
@@ -184,10 +188,24 @@ class GetReceiverAddress extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer
-                    onBtnClick = { this.handleClick }
-                    footerProps = { footerProps }
-                />
+                <Footer>
+                    <Button
+                        class = 'pull-left'
+                        name = { prevAction }
+                        title = 'Previous'
+                        action = { prevAction }
+                        isDisabled = { isPreviousDisabled }
+                        onClick = { this.handleClick }
+                    />
+                    <Button
+                        class = 'pull-right'
+                        name = { nextAction }
+                        title = 'Next'
+                        action =  { nextAction }
+                        isDisabled = { isNextDisabled }
+                        onClick = { this.handleClick }
+                    />
+                </Footer>
             </div>
         );
     }
