@@ -22,7 +22,7 @@ class Login extends React.Component {
     };
 
     onChange = (event) => {
-        event.target.classList.add('active');
+        //event.target.classList.add('active');
         isInputValid(event.target);
         this.setState({ [event.target.name]: event.target.value });
     };
@@ -34,7 +34,7 @@ class Login extends React.Component {
         }
         else {
             const error = document.getElementsByName('loginError')[0];
-            error.textContent = 'Invalid Username and/or password. Please try again!';
+            error.textContent = 'Wrong Username and/or password. Please try again!';
         }
     };
 

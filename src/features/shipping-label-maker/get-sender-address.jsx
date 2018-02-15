@@ -40,19 +40,13 @@ class GetSenderAddress extends React.Component {
             }
         }
         else {
-            onAction(action);
+            onAction(action, values);
         }
     }
 
     onChange = (event) => {
-        const { from } = this.state;
-        const change = {};
-        change[event.target.name] = event.target.value;
-        const newObj = Object.assign({}, from, change);
-
-        event.target.classList.add('active');
         isInputValid(event.target);
-        this.setState({ from: newObj });
+        this.setState({ from: {...this.state.from, [event.target.name]: event.target.value } });
     }
 
     render() {

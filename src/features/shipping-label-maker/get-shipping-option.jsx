@@ -33,14 +33,11 @@ class GetShippingOption extends React.Component {
             }
         }
         else {
-            onAction(action);
+            onAction(action, values);
         }
     }
 
     onChange = (event) => {
-        const change = {};
-        change[event.target.name] = event.target.value;
-        event.target.classList.add('active');
         isInputValid(event.target);
         this.setState({ shippingOption: event.target.value });
     }

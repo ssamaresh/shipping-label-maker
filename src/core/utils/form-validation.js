@@ -4,6 +4,7 @@ export const isInputValid = (input) => {
     const validity = input.validity;
     const label = document.getElementsByName(`${input.name}Label`)[0].textContent;
     const error = document.getElementsByName(`${input.name}Error`)[0];
+    input.classList.add('active');
     if (!validity.valid) {
         if (validity.valueMissing) {
             error.textContent = `${label} is a required field`;
@@ -27,17 +28,21 @@ export const isInputValid = (input) => {
 export const isFormValid = () => {
 
     const formElements = [...document.querySelectorAll('.form-control')];
-    const isFormValid = formElements.find(input => {
-        input.classList.add('active');
-        return isInputValid(input) === false;
-    }) ? false : true;
 
-    // formElements.forEach(input => {
-    //     input.classList.add('active');
-    //     const isValid = isInputValid(input);
-    //     if (!isValid) {
-    //         isFormValid = false;
-    //     }
-    // });
+
+    let isFormValid = true;
+
+    // const isFormValid = formElements.find(input => {
+    //     //input.classList.add('active');
+    //     return isInputValid(input) === false;
+    // }) ? false : true;
+
+
+    formElements.forEach(input => {
+        const isValid = isInputValid(input);
+        if (!isValid) {
+            isFormValid = false;
+        }
+    });
     return isFormValid;
 };
