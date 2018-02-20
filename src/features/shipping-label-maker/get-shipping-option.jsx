@@ -49,7 +49,7 @@ class GetShippingOption extends React.Component {
         return (
             <div>
                 <Header title = { title }/>
-                <div style = {{ 'marginBottom': '15px' }}>
+                <div className = 'form-group required'>
                     <label hidden name = 'shippingOptionLabel'>Shipping Option</label>
                     <select
                         required

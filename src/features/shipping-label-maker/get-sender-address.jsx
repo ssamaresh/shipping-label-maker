@@ -57,7 +57,7 @@ class GetSenderAddress extends React.Component {
             <div>
                 <Header title = { title }/>
                 <div>
-                    <div style = {{ 'marginBottom': '15px' }}>
+                    <div className = 'form-group required'>
                         <label name = 'nameLabel'>Name</label>
                         <input
                             type = 'text'
@@ -71,7 +71,7 @@ class GetSenderAddress extends React.Component {
                         />
                         <div className = 'error' name = 'nameError' />
                     </div>
-                    <div style = {{ 'marginBottom': '15px' }}>
+                    <div className = 'form-group required'>
                         <label name = 'streetLabel'>Street</label>
                         <input
                             type = 'text'
@@ -83,8 +83,8 @@ class GetSenderAddress extends React.Component {
                         />
                         <div className = 'error' name = 'streetError' />
                     </div>
-                    <div style = {{ 'paddingBottom': '100px' }}>
-                        <div style = {{ 'float': 'left', 'padding': '0 15px 0 0', 'width': '33%' }}>
+                    <div style = {{ 'display': 'flex', 'justify-content': 'space-between' }}>
+                        <div className = 'form-group required'>
                             <label name = 'cityLabel'>City</label>
                             <input
                                 type = 'text'
@@ -98,7 +98,7 @@ class GetSenderAddress extends React.Component {
                             />
                             <div className = 'error' name = 'cityError' />
                         </div>
-                        <div style = {{ 'float': 'left', 'padding': '0 15px 0 0', 'width': '33%' }}>
+                        <div className = 'form-group required'>
                             <label name = 'stateLabel'>State</label>
                             <select
                                 required
@@ -166,7 +166,7 @@ class GetSenderAddress extends React.Component {
                             </select>
                             <div className = 'error' name = 'stateError' />
                         </div>
-                        <div style = {{ 'float': 'left', 'padding': '0 0 0 0', 'width': '34%' }}>
+                        <div className = 'form-group required'>
                             <label name = 'zipLabel'>Zip</label>
                             <input
                                 type = 'text'

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProgressBar from './progress-bar';
 import './wizard.css';
+//import Authorized from './authorized';
 
 class Wizard extends React.Component {
 
@@ -47,7 +48,6 @@ class Wizard extends React.Component {
             prevAction,
             nextAction
         };
-
         return (
             <StepComponent
                 { ...headerProps }
@@ -98,7 +98,7 @@ class Wizard extends React.Component {
                 <ProgressBar
                     progress = { progress }
                     step = { step }
-                ></ProgressBar>
+                />
                 <div className = 'wizard-step'>{ this.getStep(step, wizardContext) }</div>
             </div>
         );

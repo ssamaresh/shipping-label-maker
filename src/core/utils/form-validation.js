@@ -37,12 +37,15 @@ export const isFormValid = () => {
     //     return isInputValid(input) === false;
     // }) ? false : true;
 
-
     formElements.forEach(input => {
         const isValid = isInputValid(input);
         if (!isValid) {
             isFormValid = false;
         }
     });
+
+    // const isFormValid = formElements.every(input => {
+    //     return isInputValid(input);
+    // });
     return isFormValid;
 };

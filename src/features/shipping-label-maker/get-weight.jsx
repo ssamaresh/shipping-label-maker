@@ -49,7 +49,7 @@ class GetWeight extends React.Component {
         return (
             <div>
                 <Header title = { title }/>
-                <div style = {{ 'marginBottom': '15px' }}>
+                <div className = 'form-group required'>
                     <label name = 'weightLabel'>Weight (lbs)</label>
                     <input
                         type = 'number'

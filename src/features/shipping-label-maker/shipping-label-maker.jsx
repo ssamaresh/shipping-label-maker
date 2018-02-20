@@ -2,7 +2,7 @@ import React from 'react';
 
 // Core Components import
 import Wizard from '../../core/components/wizard';
-import Authorized from '../../core/components/authorized';
+//import Authorized from '../../core/components/authorized';
 
 // Steps import
 import GetReceiverAddress from './get-receiver-address';
@@ -15,7 +15,7 @@ import ShippingLabel from './shipping-label';
 // CSS import
 import '../../core/components/wizard.css';
 
-const AuthorizedWizard = Authorized(Wizard);
+//const AuthorizedWizard = Authorized(Wizard);
 
 class ShippingLabelMaker extends React.Component {
 
@@ -124,7 +124,7 @@ class ShippingLabelMaker extends React.Component {
                 <ShippingLabel { ...shippingLabelProps }></ShippingLabel>
             ) :
             (
-                <AuthorizedWizard { ...wizardProps }></AuthorizedWizard>
+                <Wizard { ...wizardProps }></Wizard>
             );
     }
 }

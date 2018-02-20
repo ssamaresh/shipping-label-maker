@@ -48,7 +48,7 @@ class Login extends React.Component {
                     Login
                 </header>
                 <div>
-                    <div style = {{ 'marginBottom': '15px' }}>
+                    <div className = 'form-group required'>
                         <label name = 'usernameLabel'>Username</label>
                         <input
                             type = 'text'
@@ -60,7 +60,7 @@ class Login extends React.Component {
                         />
                         <div className = 'error' name = 'usernameError' />
                     </div>
-                    <div style = {{ 'marginBottom': '15px' }}>
+                    <div className = 'form-group required'>
                         <label name = 'passwordLabel'>Password</label>
                         <input
                             type = 'password'

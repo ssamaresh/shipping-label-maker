@@ -28,7 +28,6 @@ const Authorized = (WrappedComponent) => {
             else {
                 return (
                     <Login
-                        authorized = { this.state.authorized }
                         onLogin = { this.onLogin }
                     />
                 );
