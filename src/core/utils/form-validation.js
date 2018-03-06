@@ -57,14 +57,6 @@ export const email = (value) => {
     }
 };
 
-export const lt = (value, props) => {
-    // get the maxLength from component's props
-    if (value.toString().trim().length > props.maxLength) {
-        // Return jsx
-        return <span className = 'form-error is-visible'>The value exceeded {props.maxLength} symbols.</span>;
-    }
-};
-
 export const isInputValid = (labelText, input) => {
     const validity = input.validity;
     const label = labelText;

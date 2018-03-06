@@ -6,7 +6,7 @@ import Authorized from './core/components/authorized';
 
 
 class App extends Component {
-    
+
     render() {
         const AuthorizedComponent = Authorized(ShippingLabelMaker);
         return (
