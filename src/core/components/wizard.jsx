@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProgressBar from './progress-bar';
+import Button from 'react-validation/build/button';
+
+//import Button from './form-components/button';
+import Step from './step';
+
 import './wizard.css';
-//import Authorized from './authorized';
 
 class Wizard extends React.Component {
 
@@ -26,35 +29,54 @@ class Wizard extends React.Component {
         onComplete: PropTypes.func.isRequired
     };
 
-    getStep = (step, wizardContext) => {
+    renderStep = (step, wizardContext, progress) => {
         const { steps } = this.props;
 
+        // Props for Header Component
+        const title = steps[step - 1]['name'];
+        const headerProps = {
+            title
+        };
+
+        const progressBarProps = {
+            progress,
+            step
+        };
+
+        const StepComponent = steps[step - 1]['component'];
+
+        // Props for Footer Component
         const isPreviousDisabled = step === 1 ? true : false;
         const isNextDisabled = false;
         const nextAction = step !== steps.length ? 'next' : 'end';
         const prevAction = 'prev';
 
-        const StepComponent = steps[step - 1]['component'];
-
-        const title = steps[step - 1]['name'];
-
-        const headerProps = {
-            title
-        };
-
-        const footerProps = {
-            isPreviousDisabled,
-            isNextDisabled,
-            prevAction,
-            nextAction
-        };
         return (
-            <StepComponent
-                { ...headerProps }
-                wizardContext = { wizardContext }
-                onAction = { this.onAction }
-                { ...footerProps }
-            />
+            <Step onAction = { this.handleOnAction }>
+                <Step.Header { ...headerProps } />
+                <Step.ProgressBar { ...progressBarProps } />
+                <Step.Content>
+                    <StepComponent wizardContext = { wizardContext }/>
+                </Step.Content>
+                <Step.Footer>
+                    <Button
+                        className = 'pull-left'
+                        name = { prevAction }
+                        title = 'Previous'
+                        //action = { prevAction }
+                        //isDisabled = { isPreviousDisabled }
+                        onClick = { this.handleClick }
+                    />
+                    <Button
+                        className = 'pull-right'
+                        name = { nextAction }
+                        title = 'Next'
+                        //action =  { nextAction }
+                        //isDisabled = { isNextDisabled }
+                        onClick = { this.handleClick }
+                    />
+                </Step.Footer>
+            </Step>
         );
     }
 
@@ -63,21 +85,22 @@ class Wizard extends React.Component {
         onWizardContextUpdate(obj);
     }
 
-    onAction = (action, values = {}) => {
+    handleOnAction = (action, values = {}) => {
         const actionValue = this.WizardAction[action];
         const { onComplete } = this.props;
         const { step } = this.state;
 
-        this.wizardContextUpdate(values);
-
         switch(actionValue) {
             case 1:
+                this.wizardContextUpdate(values);
                 this.setState({ step: step - 1});
                 break;
             case 2:
+                this.wizardContextUpdate(values);
                 this.setState({ step: step + 1});
                 break;
             case 3:
+                this.wizardContextUpdate(values);
                 onComplete();
                 break;
             default:
@@ -95,11 +118,7 @@ class Wizard extends React.Component {
                 <header className = 'wizard-header'>
                     <h2>{ header() }</h2>
                 </header>
-                <ProgressBar
-                    progress = { progress }
-                    step = { step }
-                />
-                <div className = 'wizard-step'>{ this.getStep(step, wizardContext) }</div>
+                { this.renderStep(step, wizardContext, progress) }
             </div>
         );
     }

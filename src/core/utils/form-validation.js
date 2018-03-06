@@ -1,51 +1,88 @@
+import React from 'react';
+import validator from 'validator';
 
-
-export const isInputValid = (input) => {
-    const validity = input.validity;
-    const label = document.getElementsByName(`${input.name}Label`)[0].textContent;
-    const error = document.getElementsByName(`${input.name}Error`)[0];
-    input.classList.add('active');
-    if (!validity.valid) {
-        if (validity.valueMissing) {
-            error.textContent = `${label} is a required field`;
-        }
-        if(validity.patternMismatch) {
-            error.textContent = `${label} ` + input.title;
-        }
-        if(validity.rangeOverflow) {
-            error.textContent = `${label} can only be upto ` + input.max + ' lbs';
-        }
-        if(validity.stepMismatch) {
-            error.textContent = `${label} can only be incremented by ` + input.step + ' lbs';
-        }
-        return false;
-    }
-    error.textContent = '';
-    return true;
-
+const getFormattedName = name => {
+    return name.slice(0, 1).toUpperCase().concat(name.slice(1));
 };
 
-export const isFormValid = () => {
+export const required = (value, props) => {
+    const { name } = props;
+    if(name && value === '') {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} is a required field` }</span>;
+    }
+};
 
-    const formElements = [...document.querySelectorAll('.form-control')];
+export const alphabetsOnly = (value, props) => {
+    const { name } = props;
+    const regex = RegExp(/^[a-zA-Z ]+$/);
+    if(!regex.test(value)) {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} can only contain alphabets` }</span>;
+    }
+};
 
+export const digitsOnly = (value, props) => {
+    const { name } = props;
+    const regex = RegExp(/([0-9])/);
+    if(!regex.test(value)) {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} can only contain digits` }</span>;
+    }
+};
 
-    let isFormValid = true;
+export const numDigits = (value, props) => {
+    const { name, digits } = props;
+    const pattern = `^[0-9]{${digits}}$`;
+    const regex = RegExp(pattern);
+    if(!regex.test(value)) {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} can only contain ${digits} digits` }</span>;
+    }
+};
 
-    // const isFormValid = formElements.find(input => {
-    //     //input.classList.add('active');
-    //     return isInputValid(input) === false;
-    // }) ? false : true;
+export const rangeOverflow = (value, props) => {
+    const { name, max } = props;
+    if(value > max) {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} can only be upto ${max}` }</span>;
+    }
+};
 
-    formElements.forEach(input => {
-        const isValid = isInputValid(input);
-        if (!isValid) {
-            isFormValid = false;
+export const stepMismatch = (value, props) => {
+    const { name, step } = props;
+    if(value % step !== 0) {
+        return <span className = 'form-error is-visible'>{ `${getFormattedName(name)} can only be incremented by ${step}` }</span>;
+    }
+};
+
+export const email = (value) => {
+    if (!validator.isEmail(value)) {
+        return `${value} is not a valid email.`;
+    }
+};
+
+export const lt = (value, props) => {
+    // get the maxLength from component's props
+    if (value.toString().trim().length > props.maxLength) {
+        // Return jsx
+        return <span className = 'form-error is-visible'>The value exceeded {props.maxLength} symbols.</span>;
+    }
+};
+
+export const isInputValid = (labelText, input) => {
+    const validity = input.validity;
+    const label = labelText;
+    let errorText = '';
+    if (!validity.valid) {
+        if (validity.valueMissing) {
+            errorText = `${label} is a required field`;
         }
-    });
-
-    // const isFormValid = formElements.every(input => {
-    //     return isInputValid(input);
-    // });
-    return isFormValid;
+        if(validity.patternMismatch) {
+            errorText = `${label} ` + input.title;
+        }
+        if(validity.rangeOverflow) {
+            errorText = `${label} can only be upto ` + input.max + ' lbs';
+        }
+        if(validity.stepMismatch) {
+            errorText = `${label} can only be incremented by ` + input.step + ' lbs';
+        }
+        return { valid: false, errorText };
+    }
+    return { valid: true, errorText};
 };

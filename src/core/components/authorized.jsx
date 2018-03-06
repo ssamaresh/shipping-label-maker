@@ -13,7 +13,7 @@ const Authorized = (WrappedComponent) => {
             };
         }
 
-        onLogin = () => {
+        handleLogin = () => {
             this.setState({ authorized: true});
         };
 
@@ -28,7 +28,7 @@ const Authorized = (WrappedComponent) => {
             else {
                 return (
                     <Login
-                        onLogin = { this.onLogin }
+                        onLogin = { this.handleLogin }
                     />
                 );
             }

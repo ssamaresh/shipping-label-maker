@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import Button from 'react-validation/build/button';
 
 class Button extends React.Component {
 
     handleClick = (e) => {
+        e.preventDefault();
         const { onClick } = this.props;
         onClick(e.target.name);
     }
@@ -23,7 +25,7 @@ class Button extends React.Component {
     }
 
     static propTypes = {
-        onClick: PropTypes.func.isRequired,
+        onClick: PropTypes.func,
         name: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         action: PropTypes.string.isRequired,

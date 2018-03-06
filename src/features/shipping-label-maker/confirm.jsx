@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Header from '../../core/components/header';
-import Footer from '../../core/components/footer';
-import Button from '../../core/components/form-components/button';
-
 import '../../core/components/wizard.css';
 
 class Confirm extends React.Component {
@@ -15,11 +11,10 @@ class Confirm extends React.Component {
     }
 
     render() {
-        const { wizardContext, title, isPreviousDisabled, isNextDisabled, prevAction, nextAction } = this.props;
+        const { wizardContext } = this.props;
 
         return (
             <div>
-                <Header title = { title }/>
                 <div className = 'wizard-confirm'>
                     <div>
                         <h4>Receiver&#39;s Address</h4>
@@ -54,31 +49,12 @@ class Confirm extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Footer>
-                    <Button
-                        class = 'pull-left'
-                        name = { prevAction }
-                        title = 'Previous'
-                        action = { prevAction }
-                        isDisabled = { isPreviousDisabled }
-                        onClick = { this.handleClick }
-                    />
-                    <Button
-                        class = 'pull-right'
-                        name = { nextAction }
-                        title = 'Confirm'
-                        action =  { nextAction }
-                        isDisabled = { isNextDisabled }
-                        onClick = { this.handleClick }
-                    />
-                </Footer>
             </div>
         );
     }
 
     static propTypes = {
-        wizardContext: PropTypes.object.isRequired,
-        onAction: PropTypes.func.isRequired
+        wizardContext: PropTypes.object.isRequired
     };
 
 }

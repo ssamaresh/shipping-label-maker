@@ -34,6 +34,27 @@ select.active:valid {
     box-shadow: 0 0 1px 2px green;
 }
 
+/**********************************/
+.form-error.is-visible {
+    display: block;
+}
+
+.form-error {
+    margin: 5px 0;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #ec5840;
+}
+
+.is-visible {
+    display: block !important;
+}
+
+.is-invalid-input:not(:focus) {
+    background-color: rgba(236, 88, 64, 0.1);
+    border-color: #ec5840;
+}
+/************************************/
 div.required label::after {
     content: '*';
     display: inline;

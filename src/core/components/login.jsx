@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Form from 'react-validation/build/form';
 
-import Footer from './footer';
-import Button from './form-components/button';
+import InputText from '../components/form-components/input-text';
+import Button from '../components/form-components/button';
 
-import { isFormValid, isInputValid } from '../utils/form-validation';
+import * as validation from '../../core/utils/form-validation';
 
 class Login extends React.Component {
 
@@ -21,78 +21,64 @@ class Login extends React.Component {
         return username === 'User123' && password === 'User123';
     };
 
-    onChange = (event) => {
-        //event.target.classList.add('active');
-        isInputValid(event.target);
-        this.setState({ [event.target.name]: event.target.value });
+    handleChange = (input) => {
+        this.setState({
+            [input.name]: input.value
+        });
     };
 
     handleClick = () => {
         const { onLogin } = this.props;
-        if(isFormValid() && this.validateCredentials()) {
-            onLogin();
+        let error = document.getElementsByName('loginError')[0];
+        this.form.validateAll();
+        if(!this.validateCredentials()) {
+            error.textContent = 'Wrong Username and/or password. Please try again!';
         }
         else {
-            const error = document.getElementsByName('loginError')[0];
-            error.textContent = 'Wrong Username and/or password. Please try again!';
+            error.textContent = '';
+            onLogin();
         }
     };
 
     render() {
         const { username, password } = this.state;
-
         return (
-            <div className = 'wizard wizard-login-form'>
+            <Form ref = { c => this.form = c } className = 'wizard wizard-login-form'>
                 <div className = 'error' name = 'loginError' />
                 <header className = 'step-header'>
                     Login
                 </header>
                 <div>
-                    <div className = 'form-group required'>
-                        <label name = 'usernameLabel'>Username</label>
-                        <input
-                            type = 'text'
-                            required
-                            name = 'username'
-                            className = 'form-control'
-                            value = { username }
-                            onChange = { this.onChange }
-                        />
-                        <div className = 'error' name = 'usernameError' />
-                    </div>
-                    <div className = 'form-group required'>
-                        <label name = 'passwordLabel'>Password</label>
-                        <input
-                            type = 'password'
-                            required
-                            pattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'
-                            title = 'must contain atleast one number, one lowercase, one uppercase letter, and atleast six characters'
-                            name = 'password'
-                            className = 'form-control'
-                            value = { password }
-                            onChange = { this.onChange }
-                        />
-                        <div className = 'error' name = 'passwordError' />
-                    </div>
-                </div>
-                <Footer onBtnClick = { this.handleClick } >
-                    <Button
-                        class = 'center'
-                        name = 'login'
-                        title = 'Login'
-                        action = 'login'
-                        isDisabled = { false }
-                        onClick = { this.handleClick }
+                    <InputText
+                        labelText = 'Username'
+                        name = 'username'
+                        value = { username }
+                        onFieldChanged = { this.handleChange }
+                        validations = { [validation.required] }
                     />
-                </Footer>
-            </div>
+                    <InputText
+                        labelText = 'Password'
+                        name = 'password'
+                        //pattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'
+                        //title = 'must contain atleast one number, one lowercase, one uppercase letter, and atleast six characters'
+                        value = { password }
+                        validations = { [validation.required] }
+                        onFieldChanged = { this.handleChange }
+                    />
+                    <footer>
+                        <Button
+                            class = 'center'
+                            name = 'login'
+                            title = 'Login'
+                            action = 'login'
+                            isDisabled = { false }
+                            onClick = { this.handleClick }
+                        />
+                    </footer>
+                </div>
+            </Form>
         );
     }
-
-    static propTypes = {
-        onLogin: PropTypes.func.isRequired
-    };
-
 }
 
 export default Login;
