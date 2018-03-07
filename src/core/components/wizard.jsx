@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import Button from 'react-validation/build/button';
 
 import Button from './form-components/button';
 import Step from './step';

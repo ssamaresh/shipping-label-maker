@@ -13,10 +13,10 @@ export const isInputValid = (input) => {
             errorText = `${formatName(input.name)} ${input.title}`;
         }
         if(validity.rangeOverflow) {
-            errorText = `${formatName(input.name)} can only be upto ${input.max} lbs`;
+            errorText = `${formatName(input.name)} can only be upto ${input.max}`;
         }
         if(validity.stepMismatch) {
-            errorText = `${formatName(input.name)} can only be incremented by ${input.step} lbs`;
+            errorText = `${formatName(input.name)} can only be incremented by ${input.step}`;
         }
         input.classList.add('is-invalid-input');
         return { valid: false, errorText };
