@@ -1,12 +1,7 @@
-SHIPPING LABEL MAKER
+WIZARD
 
-Shipping Label Maker is an application that collects shipping information from the user and
-prints a shipping label. The heart of the app is a “Wizard” component whose primary
-responsibility is to receive a series of steps from its parent and sequencing through them. The
-steps will instruct the wizard to move forward or backwards, or end the wizard. The wizard
-should not know anything about the business domain. It simply receives a domain object called
-wizardContext from the parent and passes it on to the steps. Steps are free to modify the
-wizardContext as they collect information from the user.
+This application is a reusable Wizard that takes in components in the form of an array and renders a form wizard in a series of steps.
+The heart of the app is a “Wizard” component whose primary responsibility is to receive a series of steps from its parent and sequencing through them. The steps will instruct the wizard to move forward or backwards, or end the wizard. The wizard should not know anything about the business domain. It simply receives a domain object called wizardContext from the parent and passes it on to the steps. Steps are free to modify the wizardContext as they collect information from the user.
 ____________________________________________________________________________________________________________
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
