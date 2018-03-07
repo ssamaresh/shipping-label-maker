@@ -1,48 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-validation/build/button';
-
-//import Button from './form-components/button';
-
+import Button from './form-components/button';
 import './wizard.css';
 
-class Footer extends React.Component {
+const Footer  = props => {
 
-    handleClick = (event) => {
-        const { onClick } = this.props;
-        if(onClick) {
-            onClick(event.target.name);
+    const children = React.Children.map(props.children, child => {
+        if(child.type === Button) {
+            const className = `btn btn-primary ${child.props.className}`;
+            return (
+                <Button
+                    { ...child.props }
+                    className = { className }
+                    onClick = { (name) => { props.onClick(name); } }
+                >
+                    { child.props.title }
+                </Button>
+            );
         }
-    };
+    });
 
-    render() {
-        const children = React.Children.map(this.props.children, child => {
-            if(child.type === Button) {
-                const className = `btn btn-primary ${child.props.className}`;
-                return (
-                    <Button { ...child.props } className = { className } onClick = { this.handleClick }>
-                        { child.props.title }
-                    </Button>
-                );
-            }
-        });
+    return(
+        <footer className = 'wizard-footer'>
+            { children }
+        </footer>
+    );
+};
 
-        return(
-            <footer className = 'wizard-footer'>
-                { children }
-            </footer>
-        );
-    }
-
-    static propTypes = {
-        onClick: PropTypes.func
-    };
-
-}
-
-Footer.Actions = {
-    NEXT: 'next',
-    PREV: 'prev'
+Footer.propTypes = {
+    onClick: PropTypes.func
 };
 
 export default Footer;

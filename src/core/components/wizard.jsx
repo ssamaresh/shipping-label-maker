@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-validation/build/button';
+//import Button from 'react-validation/build/button';
 
-//import Button from './form-components/button';
+import Button from './form-components/button';
 import Step from './step';
 
 import './wizard.css';
@@ -63,16 +63,16 @@ class Wizard extends React.Component {
                         className = 'pull-left'
                         name = { prevAction }
                         title = 'Previous'
-                        //action = { prevAction }
-                        //isDisabled = { isPreviousDisabled }
+                        action = { prevAction }
+                        isDisabled = { isPreviousDisabled }
                         onClick = { this.handleClick }
                     />
                     <Button
                         className = 'pull-right'
                         name = { nextAction }
                         title = 'Next'
-                        //action =  { nextAction }
-                        //isDisabled = { isNextDisabled }
+                        action =  { nextAction }
+                        isDisabled = { isNextDisabled }
                         onClick = { this.handleClick }
                     />
                 </Step.Footer>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-validation/build/form';
 
 import './wizard.css';
 
@@ -10,33 +9,40 @@ import ProgressBar from './progress-bar';
 import Content from './content';
 import Footer from './footer';
 
+import { isFormValid } from '../utils/form-validation';
 
 class Step extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            stepData: {}
+            stepData: {},
+            validationErrors: []
         };
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-    };
-
     handleClick = (name) => {
         const { onAction } = this.props;
-        this.form.validateAll();
-        onAction(name, this.state.stepData);
+        this.setState({
+            validationErrors: isFormValid()
+        },
+        () => {
+            if(this.state.validationErrors.length === 0) {
+                onAction(name, this.state.stepData);
+            }
+        }
+        );
     };
 
     handleStepData = (stepData) => {
         this.setState({
-            stepData: stepData
+            stepData: stepData,
+            validationErrors: []
         });
     };
 
     render() {
+        const { validationErrors } = this.state;
         const children = React.Children.map(this.props.children, child => {
             if(child.type === Header) {
                 return <Header { ...child.props } />;
@@ -53,9 +59,15 @@ class Step extends React.Component {
             return child;
         });
         return (
-            <Form onSubmit = { this.handleSubmit } ref = { c => this.form = c }>
+            <div>
+                {
+                    validationErrors.length > 0 ?
+                        validationErrors.map((error, index) => {
+                            return <div key = { index } className = 'error'>{ error.errorText }</div>;
+                        }) : null
+                }
                 { children }
-            </Form>
+            </div>
         );
     }
 

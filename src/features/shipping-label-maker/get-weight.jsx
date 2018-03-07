@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import InputNumber from '../../core/components/form-components/input-number';
-
-import * as validation from '../../core/utils/form-validation';
 import '../../core/components/wizard.css';
 
 class GetWeight extends React.Component {
@@ -35,15 +32,11 @@ class GetWeight extends React.Component {
         return (
             <div>
                 <InputNumber
+                    required
                     labelText = 'Weight (lbs)'
                     name = 'weight'
                     value = { weight }
                     onFieldChanged = { this.handleChange }
-                    validations = { [
-                        validation.required,
-                        validation.rangeOverflow,
-                        validation.stepMismatch]
-                    }
                     min = '0.1'
                     max = '999'
                     step = '0.1'

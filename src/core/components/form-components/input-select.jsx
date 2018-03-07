@@ -1,47 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-validation/build/select';
+
+import { isInputValid } from '../../utils/form-validation';
 
 class InputSelect extends React.PureComponent {
 
-    // componentDidMount() {
-    //     const { value } = this.props;
-    //     if(value !== this.state.value) {
-    //         const newValue = value;
-    //         this.setState({ value: newValue });
-    //     }
-    // }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            errorText: '',
+            isValid: true
+        };
+    }
 
     handleChange = (e) => {
         const { value, name } = e.target;
         const { onFieldChanged } = this.props;
         const input = { name, value };
         onFieldChanged(input);
+        this.checkInputValidity(e.target);
+    };
+
+    checkInputValidity = (input) => {
+        const isValid = isInputValid(input);
+        this.setState({
+            errorText: isValid.errorText,
+            isValid: isValid.valid
+        });
     };
 
     render() {
-        const { value, name, labelText, options, validations } = this.props;
-        const requiredClass = validations.find(item => {
-            return item.name === 'required';
-        }) ? 'required' : '';
+        const { required, value, labelText, name, title, options, pattern } = this.props;
+        const requiredClass = required ? 'required' : '';
         let inputClass = ['form-control'];
-        // const list = options.map((option, index) => {
-        //     if (typeof option === 'object') {
-        //         return <option key = { index } value = { option.value }>{ option.name }</option>;
-        //     }
-        //     else {
-        //         return <option key = { index } value = { option }>{ option }</option>;
-        //     }
-        // });
 
         return (
             <div className = { `form-group ${requiredClass}` }>
                 <label name = { `${name} Label` }>{ labelText }</label>
-                <Select
+                <select
+                    required = { required }
                     name = { name }
+                    pattern = { pattern }
+                    title = { title }
                     value = { value }
                     className = { inputClass.join(' ') }
-                    validations = { validations }
                     onChange = { this.handleChange }
                 >
                     {
@@ -54,26 +57,15 @@ class InputSelect extends React.PureComponent {
                             }
                         })
                     }
-                </Select>
-                {/* <select
-                    //required = { required }
-                    name = { name }
-                    value = { value }
-                    className = { inputClass.join(' ') }
-                    onChange = { this.handleChange }
-                    validations = { validations }
-                >
-                    {
-                        options.map((option, index) => {
-                            if (typeof option === 'object') {
-                                return <option key = { index } value = { option.value }>{ option.name }</option>;
-                            }
-                            else {
-                                return <option key = { index } value = { option }>{ option }</option>;
-                            }
-                        })
-                    }
-                </select> */}
+                </select>
+                { !this.state.isValid
+                    ?
+                    <span className = 'form-error is-visible' name = 'nameError'>
+                        { this.state.errorText }
+                    </span>
+                    :
+                    null
+                }
             </div>
         );
     }

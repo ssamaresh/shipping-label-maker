@@ -1,47 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from 'react-validation/build/input';
+
+import { isInputValid } from '../../utils/form-validation';
 
 class InputNumber extends React.Component {
 
-    // componentWillMount() {
-    //     const { value } = this.props;
-    //     const newValue = value;
-    //     this.setState({ value: newValue });
-    // }
-    
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            errorText: '',
+            isValid: true
+        };
+    }
+
     handleChange = (e) => {
         const { value, name } = e.target;
         const { onFieldChanged } = this.props;
         const input = { name, value };
         onFieldChanged(input);
-        // this.setState({
-        //     value: value
-        // }, () => { this.handleStateChange(); });
+        this.checkInputValidity(e.target);
+    };
+
+    checkInputValidity = (input) => {
+        const isValid = isInputValid(input);
+        this.setState({
+            errorText: isValid.errorText,
+            isValid: isValid.valid
+        });
     };
 
     render() {
-        const { value, digits, labelText, name, validations, min, max, step } = this.props;
-        const requiredClass = validations.find(item => {
-            return item.name === 'required';
-        }) ? 'required' : '';
+        const { required, value, labelText, name, min, max, step } = this.props;
+        const requiredClass = required ? 'required' : '';
         let inputClass = ['form-control'];
 
         return (
             <div className = { `form-group ${requiredClass}` }>
                 <label name = { `${name} Label` }>{ labelText }</label>
-                <Input
+                <input
+                    required = { required }
                     type = 'number'
                     name = { name }
                     className = { inputClass.join(' ') }
                     value = { value }
-                    digits = { digits }
                     min = { min }
                     max = { max }
                     step = { step }
                     onChange = { this.handleChange }
-                    validations = { validations }
                 />
+                { !this.state.isValid
+                    ?
+                    <span className = 'form-error is-visible' name = 'nameError'>
+                        { this.state.errorText }
+                    </span>
+                    :
+                    null
+                }
             </div>
         );
     }

@@ -5,7 +5,6 @@ import InputText from '../../core/components/form-components/input-text';
 import InputSelect from '../../core/components/form-components/input-select';
 import { US_STATES } from '../../core/utils/utils';
 
-import * as validation from '../../core/utils/form-validation';
 import '../../core/components/wizard.css';
 
 class GetReceiverAddress extends React.Component {
@@ -43,42 +42,42 @@ class GetReceiverAddress extends React.Component {
         return (
             <div>
                 <InputText
+                    required
                     labelText = 'Name'
                     name = 'name'
                     value = { to.name }
                     onFieldChanged = { this.handleChange }
-                    validations = { [validation.required, validation.alphabetsOnly] }
                 />
                 <InputText
+                    required
                     labelText = 'Street'
                     name = 'street'
                     value = { to.street }
                     onFieldChanged = { this.handleChange }
-                    validations = { [validation.required] }
                 />
                 <div style = {{ 'display': 'flex', 'justifyContent': 'space-between' }}>
                     <InputText
+                        required
                         labelText = 'City'
                         name = 'city'
                         value = { to.city }
                         onFieldChanged = { this.handleChange }
-                        validations = { [validation.required, validation.alphabetsOnly] }
                     />
-                    {/* <InputSelect
+                    <InputSelect
+                        required
                         labelText = 'State'
                         name = 'state'
                         value = { to.state }
                         options = { US_STATES }
                         onFieldChanged = { this.handleChange }
-                        validations = { [validation.required] }
-                    /> */}
+                    />
                     <InputText
+                        required
                         labelText = 'Zip'
                         name = 'zip'
                         digits = { 5 }
                         value = { to.zip }
                         onFieldChanged = { this.handleChange }
-                        validations = { [validation.required, validation.digitsOnly, validation.numDigits] }
                     />
                 </div>
             </div>

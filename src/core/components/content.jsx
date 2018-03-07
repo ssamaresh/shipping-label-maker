@@ -1,27 +1,23 @@
 import React from 'react';
 import './wizard.css';
 
-class Content extends React.Component {
+const Content = props => {
 
-    handleChange = (stepData) => {
-        const { setStepData } = this.props;
-        setStepData(stepData);
-    };
-
-    render() {
-        const children = React.Children.map(this.props.children, child => {
-            let StepComponent = child.type;
-            return (
-                <StepComponent { ...child.props } onDataChange = { this.handleChange }/>
-            );
-        });
-
+    const children = React.Children.map(props.children, child => {
+        let StepComponent = child.type;
         return (
-            <div>
-                { children }
-            </div>
+            <StepComponent
+                { ...child.props }
+                onDataChange = { (stepData) => { props.setStepData(stepData); } }
+            />
         );
-    }
-}
+    });
+
+    return (
+        <div>
+            { children }
+        </div>
+    );
+};
 
 export default Content;

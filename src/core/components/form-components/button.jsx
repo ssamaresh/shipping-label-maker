@@ -1,36 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Button from 'react-validation/build/button';
 
-class Button extends React.Component {
+const Button = props => {
 
-    handleClick = (e) => {
-        e.preventDefault();
-        const { onClick } = this.props;
-        onClick(e.target.name);
-    }
+    const { name, title, isDisabled, className } = props;
+    
+    return(
+        <button
+            className = { 'btn btn-primary ' + className }
+            name = { name }
+            disabled = { isDisabled }
+            onClick = { (e) => {
+                props.onClick(e.target.name);
+            }}
+        >
+            { title }
+        </button>
+    );
+};
 
-    render() {
-        const { name, title, isDisabled } = this.props;
-        return(
-            <button
-                className = { 'btn btn-primary ' + this.props.class }
-                name = { name }
-                disabled = { isDisabled }
-                onClick = { this.handleClick }
-            >
-                { title }
-            </button>
-        );
-    }
-
-    static propTypes = {
-        onClick: PropTypes.func,
-        name: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        action: PropTypes.string.isRequired,
-        isDisabled: PropTypes.bool.isRequired
-    };
-}
+Button.propTypes = {
+    onClick: PropTypes.func,
+    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    isDisabled: PropTypes.bool.isRequired
+};
 
 export default Button;

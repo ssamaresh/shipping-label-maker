@@ -50,10 +50,11 @@ select.active:valid {
     display: block !important;
 }
 
-.is-invalid-input:not(:focus) {
+.form-control.is-invalid-input {
     background-color: rgba(236, 88, 64, 0.1);
     border-color: #ec5840;
 }
+
 /************************************/
 div.required label::after {
     content: '*';

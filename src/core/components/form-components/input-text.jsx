@@ -1,35 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from 'react-validation/build/input';
+
+import { isInputValid } from '../../utils/form-validation';
 
 class InputText extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            errorText: '',
+            isValid: true
+        };
+    }
 
     handleChange = (e) => {
         const { value, name } = e.target;
         const { onFieldChanged } = this.props;
         const input = { name, value };
         onFieldChanged(input);
+        this.checkInputValidity(e.target);
+    };
+
+    checkInputValidity = (input) => {
+        const isValid = isInputValid(input);
+        this.setState({
+            errorText: isValid.errorText,
+            isValid: isValid.valid
+        });
     };
 
     render() {
-        const { value, labelText, name, validations, digits } = this.props;
-        const requiredClass = validations.find(item => {
-            return item.name === 'required';
-        }) ? 'required' : '';
+        const { required, value, labelText, name, title, pattern } = this.props;
+        const requiredClass = required ? 'required' : '';
         let inputClass = ['form-control'];
 
         return (
             <div className = { `form-group ${requiredClass}` }>
                 <label name = { `${name} Label` }>{ labelText }</label>
-                <Input
+                <input
+                    required = { required }
                     type = 'text'
-                    digits = { digits }
+                    pattern = { pattern }
+                    title = { title }
                     name = { name }
                     className = { inputClass.join(' ') }
                     value = { value }
                     onChange = { this.handleChange }
-                    validations = { validations }
                 />
+                { !this.state.isValid
+                    ?
+                    <span className = 'form-error is-visible' name = 'nameError'>
+                        { this.state.errorText }
+                    </span>
+                    :
+                    null
+                }
             </div>
         );
     }
@@ -42,8 +68,7 @@ class InputText extends React.Component {
         labelText: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-        onFieldChanged: PropTypes.func.isRequired,
-        digits: PropTypes.number
+        onFieldChanged: PropTypes.func.isRequired
     };
 }
 

@@ -1,10 +1,8 @@
 import React from 'react';
-import Form from 'react-validation/build/form';
 
 import InputText from '../components/form-components/input-text';
 import Button from '../components/form-components/button';
-
-import * as validation from '../../core/utils/form-validation';
+import { isFormValid } from '../utils/form-validation';
 
 class Login extends React.Component {
 
@@ -12,7 +10,8 @@ class Login extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            validationErrors: []
         };
     }
 
@@ -29,54 +28,66 @@ class Login extends React.Component {
 
     handleClick = () => {
         const { onLogin } = this.props;
-        let error = document.getElementsByName('loginError')[0];
-        this.form.validateAll();
-        if(!this.validateCredentials()) {
-            error.textContent = 'Wrong Username and/or password. Please try again!';
+        this.setState({
+            validationErrors: isFormValid()
+        },
+        () => {
+            if(this.state.validationErrors.length === 0) {
+                if(!this.validateCredentials()) {
+                    this.setState({
+                        validationErrors: [{errorText: 'Wrong Username and/or password. Please try again!'}]
+                    });
+                }
+                else {
+                    onLogin();
+                }
+            }
         }
-        else {
-            error.textContent = '';
-            onLogin();
-        }
+        );
     };
 
     render() {
-        const { username, password } = this.state;
+        const { username, password, validationErrors } = this.state;
+
         return (
-            <Form ref = { c => this.form = c } className = 'wizard wizard-login-form'>
-                <div className = 'error' name = 'loginError' />
+            <div className = 'wizard wizard-login-form'>
+                {
+                    validationErrors.length > 0 ?
+                        validationErrors.map((error, index) => {
+                            return <div key = { index } className = 'error' name = 'loginError'>{ error.errorText }</div>;
+                        }) : null
+                }
                 <header className = 'step-header'>
                     Login
                 </header>
                 <div>
                     <InputText
+                        required
                         labelText = 'Username'
                         name = 'username'
                         value = { username }
                         onFieldChanged = { this.handleChange }
-                        validations = { [validation.required] }
                     />
                     <InputText
+                        required
                         labelText = 'Password'
                         name = 'password'
-                        //pattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'
-                        //title = 'must contain atleast one number, one lowercase, one uppercase letter, and atleast six characters'
+                        pattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'
+                        title = 'must contain atleast one number, one lowercase, one uppercase letter, and atleast six characters'
                         value = { password }
-                        validations = { [validation.required] }
                         onFieldChanged = { this.handleChange }
                     />
                     <footer>
                         <Button
-                            class = 'center'
+                            className = 'center'
                             name = 'login'
                             title = 'Login'
-                            action = 'login'
                             isDisabled = { false }
                             onClick = { this.handleClick }
                         />
                     </footer>
                 </div>
-            </Form>
+            </div>
         );
     }
 }
